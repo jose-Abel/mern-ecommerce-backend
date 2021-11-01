@@ -3,23 +3,22 @@ const mongoose = require('mongoose');
 
 require('dotenv').config();
 
+// import routes
+const userRoutes = require('./routes/user');
 
 // app
 const app = express();
 
 
 // db
-
 mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
-  useCreateIndex: true
-}).then(() => console.log("DB Connected"));
+  useUnifiedTopology: true,
+}).then(() => console.log("DB Connected")).catch((err) => console.error(err));
 
 
-// routes
-app.get('/', (req, res)=> {
-  res.send("Hello from node");
-});
+// routes middlewares
+app.use("/api", userRoutes);
 
 
 
