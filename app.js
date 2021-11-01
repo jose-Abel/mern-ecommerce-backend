@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 require('dotenv').config();
 
@@ -15,6 +17,12 @@ mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log("DB Connected")).catch((err) => console.error(err));
+
+
+// middlewares
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(cookieParser());
 
 
 // routes middlewares
