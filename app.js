@@ -1,8 +1,22 @@
 const express = require('express');
+const mongoose = require('mongoose');
+
+require('dotenv').config();
+
+
+// app
 const app = express();
-const dotenv = require('dotenv').config();
 
 
+// db
+
+mongoose.connect(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useCreateIndex: true
+}).then(() => console.log("DB Connected"));
+
+
+// routes
 app.get('/', (req, res)=> {
   res.send("Hello from node");
 });
