@@ -135,16 +135,6 @@ exports.update = (req, res) => {
   });
 }
 
-/*
-
-by sell = /products?sortBy=sold&order=desc&limit=4
-
-by arrival = /products?sortBy=createdAt&order=desc&limit=4
-
-if no params are sent, then all products are returned
-
-*/
-
 exports.list = (req, res) => {
   let order = req.query.order ? req.query.order : 'asc';
   let sortBy = req.query.sortBy ? req.query.sortBy : '_id';
@@ -161,6 +151,27 @@ exports.list = (req, res) => {
         error: "Products not found"
       });
     }
-    res.send(products);
+    res.json(products);
+  });
+}
+
+// It will find the products based on the req product category
+
+// Other products with the same category will be returned
+
+exports.listRelated = (req, res) => {
+  let limit = req.query.limit ? parseInt(req.query.limit) : '6';
+
+  Product.find({ _id: {$ne: req.product}, category: req.product.category})
+  .limit(limit)
+  .populate('category', '_id name')
+  .exec((err, products) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Products not found"
+      });
+    }
+
+    res.json(products);
   });
 }
