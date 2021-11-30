@@ -155,10 +155,6 @@ exports.list = (req, res) => {
   });
 }
 
-// It will find the products based on the req product category
-
-// Other products with the same category will be returned
-
 exports.listRelated = (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : '6';
 
@@ -173,5 +169,18 @@ exports.listRelated = (req, res) => {
     }
 
     res.json(products);
+  });
+}
+
+exports.listCategories = (req, res) => {
+  // Get all the categories used in the Product model distinct to product 
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Categories not found"
+      });
+    }
+
+    res.json(categories)
   });
 }
