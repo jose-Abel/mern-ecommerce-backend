@@ -38,7 +38,7 @@ exports.read = (req, res) => {
 exports.update = (req, res) => {
   const category = req.category;
 
-  cagegory.name = req.body.name;
+  category.name = req.body.name;
 
   category.save((err, data) => {
     if (err) {
