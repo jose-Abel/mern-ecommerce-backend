@@ -10,7 +10,7 @@ exports.productById = (req, res, next, id) => {
     if (err || !product) {
       return res.status(400).json({
         error: "Product not found"
-      })
+      });
     }
 
     req.product = product;
@@ -28,7 +28,7 @@ exports.read = (req, res) => {
 exports.create = (req, res) => {
   let form = new formidable.IncomingForm();
 
-  form.keepExtensions = false;
+  form.keepExtensions = true;
 
   form.parse(req, (err, fields, files) => {
     if(err) {
@@ -90,7 +90,7 @@ exports.remove = (req, res) => {
 exports.update = (req, res) => {
   let form = new formidable.IncomingForm();
 
-  form.keepExtensions = false;
+  form.keepExtensions = true;
 
   form.parse(req, (err, fields, files) => {
     if(err) {

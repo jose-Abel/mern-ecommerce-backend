@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const crypto = require("crypto");
 const {v1: uuidv1} = require("uuid");
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
@@ -50,7 +50,7 @@ userSchema.virtual('password')
 userSchema.methods = {
   authenticate: function(plainText){
     return this.encryptPassword(plainText) === this.hashed_password;
-  },  
+  },
   encryptPassword: function(password) {
     if(!password) return '';
 
