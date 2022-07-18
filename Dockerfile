@@ -10,4 +10,6 @@ COPY . /app
 
 EXPOSE 8000
 
+ENV MONGODB_URL=mongodb
+
 CMD ["npm", "start"]

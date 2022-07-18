@@ -17,9 +17,8 @@ const productRoutes = require('./routes/product');
 // app
 const app = express();
 
-
 // db
-mongoose.connect(process.env.DATABASE, {
+mongoose.connect(`mongodb://${process.env.MONGODB_URL}:27017/ecommerce`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }).then(() => console.log("DB Connected")).catch((err) => console.error(err));

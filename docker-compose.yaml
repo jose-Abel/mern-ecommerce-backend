@@ -6,6 +6,8 @@ services:
         - data:/data/db
     env_file:
         - ./.env
+    networks:
+      - mern-ecommerce        
   backend:
     build: .
     ports:
@@ -18,6 +20,14 @@ services:
       - ./.env
     depends_on:
       - mongodb
+    networks:
+      - mern-ecommerce
+
+networks:
+  mern-ecommerce:
+    driver: bridge
+    external: false
+    name: mern-ecommerce
 
 volumes:
   data:
